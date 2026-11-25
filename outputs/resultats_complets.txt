@@ -1,0 +1,112 @@
+================ RÉSULTATS ================
+Étalon DP (article) : 0.72    Trajectoires hors échantillon : 5000    Graines : entraînement 123 / hors échantillon 2026 
+
+1. Réplication du tableau 1 (QL, alpha = 0.1 constant)
+------------------------------------------------------
+ epsilon Épisodes Article (in-sample) In-sample Hors éch. Erreur type
+    0.10    50000                0.65     0.636     0.610       0.007
+    0.10   100000                0.65     0.636     0.602       0.007
+    0.20    50000                0.69     0.648     0.594       0.007
+    0.20   100000                0.71     0.636     0.579       0.007
+    0.25   100000                0.71     0.743     0.608       0.007
+    0.30    50000                0.72     0.683     0.594       0.007
+    0.30   100000                0.72     0.697     0.582       0.007
+    0.40    50000                0.73     0.702     0.606       0.007
+    0.40   100000                0.77     0.702     0.608       0.007
+    0.40   200000                0.75     0.717     0.587       0.007
+    0.40   500000                0.71     0.803     0.615       0.007
+ Hors éch. (exploration) Temps (s)
+                   0.605    10.519
+                   0.588    21.348
+                   0.571    11.565
+                   0.557    20.696
+                   0.593    21.818
+                   0.562    10.498
+                   0.560    20.605
+                   0.571    10.836
+                   0.566    20.627
+                   0.552    41.882
+                   0.559    78.076
+
+2. Variabilité sur 10 graines (QL, epsilon = 0.3, alpha = 0.1 constant)
+-----------------------------------------------------------------------
+ Épisodes    Mesure Moyenne Écart-type   Min   Max Temps (s)
+    50000 in-sample   0.675      0.017 0.652 0.697    10.946
+    50000 hors éch.   0.593      0.019 0.565 0.626    10.946
+   100000 in-sample   0.699      0.014 0.684 0.722    19.756
+   100000 hors éch.   0.602      0.012 0.579 0.623    19.756
+
+3. QL vs SARSA, alpha par paquets (moyennes sur 3 répétitions)
+--------------------------------------------------------------
+ Méthode epsilon alpha Épisodes In-sample Hors éch. Hors éch. (exploration)
+      QL     0.1   0.1    50000     0.491     0.538                   0.535
+   SARSA     0.1   0.1    50000     0.267     0.513                   0.512
+      QL     0.3   0.1    50000     0.523     0.563                   0.544
+   SARSA     0.3   0.1    50000     0.144     0.522                   0.515
+      QL     0.5   0.1    50000     0.539     0.592                   0.545
+   SARSA     0.5   0.1    50000     0.090     0.541                   0.513
+      QL     0.1   0.5    50000     0.631     0.620                   0.612
+   SARSA     0.1   0.5    50000     0.471     0.605                   0.595
+      QL     0.3   0.5    50000     0.688     0.624                   0.595
+   SARSA     0.3   0.5    50000     0.459     0.600                   0.574
+      QL     0.5   0.5    50000     0.744     0.630                   0.562
+   SARSA     0.5   0.5    50000     0.458     0.623                   0.558
+ Temps (s)
+    10.279
+     9.899
+    10.209
+     9.805
+    10.093
+     9.721
+    11.036
+     9.745
+    10.464
+    10.173
+    10.371
+     9.251
+
+4. Schémas du taux d'apprentissage, valeurs finales (epsilon = 0.3)
+-------------------------------------------------------------------
+ Méthode Schéma alpha Épisodes In-sample Hors éch. Temps (s)
+      QL     constant   100000     0.715     0.602    16.580
+   SARSA     constant   100000     0.519     0.541    15.706
+      QL      paquets   100000     0.622     0.630    18.031
+   SARSA      paquets   100000     0.292     0.587    19.007
+      QL          1/k   100000     0.000     0.511    19.681
+   SARSA          1/k   100000     0.000     0.505    26.555
+      QL          1/N   100000     0.139     0.575    27.848
+   SARSA          1/N   100000     0.048     0.601    25.071
+
+5. Entraînement long, valeurs finales (epsilon = 0.3)
+-----------------------------------------------------
+ Méthode Schéma alpha Épisodes In-sample Hors éch. Temps (s)
+      QL      paquets   500000     0.699     0.679   106.582
+   SARSA      paquets   500000     0.559     0.652    99.936
+
+6. Exploration décroissante de 0.3 vers epsilon final (moyennes sur 3 répétitions)
+----------------------------------------------------------------------------------
+ Méthode epsilon final Épisodes In-sample Hors éch. Hors éch. (exploration)
+      QL          0.05    50000     0.505     0.553                   0.546
+   SARSA          0.05    50000     0.308     0.537                   0.528
+      QL          0.30    50000     0.514     0.559                   0.539
+   SARSA          0.30    50000     0.150     0.527                   0.513
+ Temps (s)
+    11.838
+    11.076
+    11.590
+    10.908
+
+7. Initialisation optimiste, QL (moyennes sur 3 répétitions)
+------------------------------------------------------------
+ epsilon Q initial Épisodes In-sample Hors éch. Hors éch. (exploration)
+    0.05         0    50000     0.487     0.514                   0.518
+    0.30         0    50000     0.524     0.566                   0.545
+    0.05         1    50000     0.991     0.568                   0.563
+    0.30         1    50000     0.992     0.576                   0.549
+ Temps (s)
+    11.289
+    11.144
+    11.600
+    11.234
+
+Graphiques enregistrés dans outputs/. Durée totale : 26.4 min

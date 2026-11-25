@@ -112,7 +112,7 @@ plot_oos_vs_epsilon <- function(results, dp_benchmark, file) {
 # jamais visité, ou objectif jamais atteint depuis cet état (aucune information).
 plot_policy_maps <- function(runs, grid, G, file) {
   horizon <- grid$horizon
-  K <- dim(grid$cum_P)[3]
+  K <- dim(grid$ctpm)[3]
   cols <- colorRampPalette(c("#2a78d6", "#d9d6cf", "#e34948"))(K)
 
   policies <- lapply(runs, function(run) {
