@@ -1,9 +1,9 @@
 # Main function to set the problem's parameter and call the function TEC_QL_GBWM_solve_QL
 
 rm(list = ls())                                # clear all data and functions
-
-source("TEC_QL_GBWM_build_grid.R")
-source("TEC_QL_GBWM_solve_CANEVAS_complété2026.R")
+library("here")
+source(here("code cours", "TEC_QL_GBWM_build_grid.R"))
+source(here("code cours", "TEC_QL_GBWM_solve_CANEVAS_complété2026.R"))
 
 w0 <- 100                                      # initial wealth
 G <- 200                                       # goal
