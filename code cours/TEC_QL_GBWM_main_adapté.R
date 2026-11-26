@@ -18,22 +18,22 @@ mu_vals <- c(0.0526, 0.0552, 0.0577, 0.0603, 0.0629, 0.0655, 0.0680,
 sig_vals <- c(0.0485, 0.0486, 0.0493, 0.0508, 0.0529, 0.0556, 0.0587,
               0.0623, 0.0662, 0.0705, 0.0749, 0.0796, 0.0844, 0.0894, 0.0945)
 
-seed <- sample.int(999999, 1)   # Seed control for the simulations. Requires a positive integer.
+seed <- 123   # Seed control for the simulations. Requires a positive integer.
                                 # Replace by a fixed integer if desired (fixed behaviour then)
 
 ## Train and test QL
-epochs <- 50000                                # Size of training set
+# epochs <- 50000                                # Size of training set
 alpha <- 0.1                                   # Fix learning rate
 
-tic <- Sys.time()                              # start computing stopwatch
+#tic <- Sys.time()                              # start computing stopwatch
 
-result <- TEC_QL_GBWM_solve(w0, G, T, nw, np, mu_vals, sig_vals,
-                               epochs, epsi, alpha, seed)
-suc_rl <- result[[1]]
-Q_rl <- result[[2]]
-op_rl <- result[[3]]
+#result <- TEC_QL_GBWM_solve(w0, G, T, nw, np, mu_vals, sig_vals,
+                               #epochs, epsi, alpha, seed)
+#suc_rl <- result[[1]]
+#Q_rl <- result[[2]]
+#op_rl <- result[[3]]
 
-print(suc_rl)
+#print(suc_rl)
 
-toc <- Sys.time()                              # stop stopwatch
-toc - tic
+##toc <- Sys.time()                              # stop stopwatch
+#toc - tic

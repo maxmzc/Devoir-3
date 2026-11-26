@@ -18,8 +18,9 @@ run_title <- function(run) {
 }
 
 # Ouvre un panneau vide avec grille horizontale et ligne de l'étalon DP.
-setup_panel <- function(xlim, ylim, xlab, ylab, main, dp_benchmark) {
-  plot(NA, xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, main = main)
+setup_panel <- function(xlim, ylim, xlab, ylab, main, dp_benchmark, x_axis = TRUE) {
+  plot(NA, xlim = xlim, ylim = ylim, xlab = xlab, ylab = ylab, main = main,
+       xaxt = if (x_axis) "s" else "n")          # "n" : pas d'axe x automatique
   abline(h = pretty(ylim), col = col_grid, lwd = 0.5)
   abline(h = dp_benchmark, col = col_dp, lty = 3, lwd = 1.5)
 }
@@ -149,6 +150,7 @@ plot_policy_maps <- function(runs, grid, G, file) {
 # d'épisodes ; chaque point est une graine. La ligne pointillée est le 0,72
 # rapporté par l'article (in-sample) et par le DP.
 plot_seed_distribution <- function(results, dp_benchmark, file) {
+  # Deux boîtes par nombre d'épisodes : in-sample puis hors échantillon
   groups <- list()
   for (e in sort(unique(results$epochs))) {
     d <- results[results$epochs == e, ]
@@ -157,14 +159,17 @@ plot_seed_distribution <- function(results, dp_benchmark, file) {
   }
   cols <- rep(col_series[2:1], length.out = length(groups))   # orange : in-sample, bleu : hors éch.
   ylim <- range(unlist(groups), dp_benchmark)
-
+  at   <- seq_along(groups)
+  
   show_and_save(file, 7, 4.5, function() {
-    set_style(mar = c(4.2, 4.2, 1, 1))
-    setup_panel(c(0.5, length(groups) + 0.5), ylim, "", "Taux de succès", "", dp_benchmark)
-    boxplot(groups, add = TRUE, col = adjustcolor(cols, 0.25), border = cols, outline = FALSE,
-            axes = FALSE, boxwex = 0.5)
-    stripchart(groups, add = TRUE, vertical = TRUE, method = "jitter", jitter = 0.08,
+    set_style(mar = c(4.8, 4.2, 1, 1))                         # un peu plus de place pour 2 lignes
+    setup_panel(c(0.5, length(groups) + 0.5), ylim, "", "Taux de succès", "", dp_benchmark,
+                x_axis = FALSE)                             
+    boxplot(groups, at = at, add = TRUE, col = adjustcolor(cols, 0.25), border = cols,
+            outline = FALSE, axes = FALSE, boxwex = 0.5)
+    stripchart(groups, at = at, add = TRUE, vertical = TRUE, method = "jitter", jitter = 0.08,
                pch = 19, cex = 0.7, col = cols)
-    axis(1, at = seq_along(groups), labels = names(groups), padj = 0.5, tick = FALSE)
+    axis(1, at = at, labels = names(groups), tick = FALSE, lwd = 0,
+         padj = 0.5, mgp = c(3, 1.3, 0))                        # étiquettes tracées une seule fois
   })
 }
